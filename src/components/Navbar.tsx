@@ -79,19 +79,19 @@ export const Navbar: React.FC<NavbarProps> = ({ setActiveTab }) => {
           {/* Brand Logo & Landmark */}
           <div
             onClick={() => setActiveTab && setActiveTab('home')}
-            className="flex items-center gap-3 cursor-pointer"
+            className="flex items-center gap-2 sm:gap-3 cursor-pointer shrink-0"
           >
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm">
-              <Trailer22WheelerIcon className="w-6 h-6" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shrink-0">
+              <Trailer22WheelerIcon className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
 
             <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 dark:text-white font-sans">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="font-extrabold text-sm sm:text-base md:text-lg tracking-tight text-slate-900 dark:text-white font-sans">
                   E-BROKER
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-400/30 px-2 py-0.5 rounded-full">
-                  PAKISTAN
+                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-400/30 px-1.5 sm:px-2 py-0.5 rounded-full hidden xs:inline-block">
+                  PK
                 </span>
               </div>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 -mt-0.5 hidden sm:block">
@@ -123,18 +123,18 @@ export const Navbar: React.FC<NavbarProps> = ({ setActiveTab }) => {
           </div>
 
           {/* Right Toolbar: Theme Toggle, Language, Audio Guide, Profile Menu */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             {/* Theme Toggle (Light / Dark) */}
             <button
               type="button"
               onClick={toggleTheme}
-              className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer shrink-0"
               title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
               {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-500" />
+                <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500" />
               ) : (
-                <Moon className="w-4 h-4 text-slate-600" />
+                <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-600" />
               )}
             </button>
 
@@ -142,15 +142,15 @@ export const Navbar: React.FC<NavbarProps> = ({ setActiveTab }) => {
             <button
               type="button"
               onClick={toggleLanguage}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
+              className="flex items-center gap-1 px-2 sm:px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-[11px] sm:text-xs font-semibold border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer shrink-0"
               title="Switch Language"
             >
               <Languages className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-              <span>{language === 'en' ? 'اردو' : 'English'}</span>
+              <span>{language === 'en' ? 'اردو' : 'EN'}</span>
             </button>
 
             {/* Audio Controls: Mute/Unmute & Play/Stop */}
-            <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center gap-0.5 sm:gap-1 bg-slate-100 dark:bg-slate-800 p-0.5 sm:p-1 rounded-xl border border-slate-200 dark:border-slate-700 shrink-0">
               {/* Play Guide Button */}
               <button
                 type="button"
