@@ -151,34 +151,32 @@ export const ShipperPortal: React.FC<ShipperPortalProps> = ({
           ============================================================ */}
       {currentTab === 'home' && (
         <div className="space-y-6">
-          {/* Main Landmark Card */}
-          <div className="app-card bg-gradient-to-br from-blue-900 to-slate-900 text-white p-6 sm:p-8 space-y-4 border-0 shadow-md">
+          {/* Clean Shipper Header Card */}
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="text-micro text-blue-200 flex items-center gap-1.5">
-                <Truck className="w-4 h-4 text-blue-300" />
+              <div className="flex items-center gap-1.5 text-xs text-blue-600 dark:text-blue-400 font-semibold mb-1">
+                <Truck className="w-4 h-4" />
                 <span>{isUrdu ? 'مالکِ مال / تاجر ڈیسک' : 'Shipper Freight Desk'}</span>
               </div>
-              <h1 className="heading-page text-white mt-1">
+              <h1 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
                 {isUrdu ? 'کہاں مال بھیجنا ہے؟' : 'Where do you want to send your goods?'}
               </h1>
-              <p className="text-body-sm text-blue-100 mt-1 max-w-xl">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
                 {isUrdu
-                  ? 'اپنا لوڈ پوسٹ کریں اور پاکستان بھر کے تصدیق شدہ ٹرانسپورٹرز سے براہ راست ریٹ حاصل کریں۔'
-                  : 'Post your cargo in simple steps and receive direct competitive rates from verified carriers.'}
+                  ? 'اپنا لوڈ پوسٹ کریں اور تصدیق شدہ ٹرانسپورٹرز سے ریٹ حاصل کریں۔'
+                  : 'Post your cargo and receive direct rates from verified carriers.'}
               </p>
             </div>
 
-            {/* Giant Obvious Primary CTA */}
-            <div>
-              <Button
+            <div className="shrink-0">
+              <button
+                type="button"
                 onClick={() => setShowPostLoadWizard(true)}
-                variant="primary"
-                size="md"
-                leftIcon={<Plus className="w-5 h-5 stroke-[2.5]" />}
-                className="bg-blue-500 hover:bg-blue-400 text-white text-base py-3.5 px-6 rounded-2xl shadow-lg font-bold"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-4 py-2.5 rounded-lg flex items-center gap-2 cursor-pointer transition-colors shadow-xs"
               >
-                {isUrdu ? 'نیا لوڈ پوسٹ کریں (Post a Load)' : 'Post a New Load'}
-              </Button>
+                <Plus className="w-4 h-4" />
+                <span>{isUrdu ? 'نیا لوڈ لگائیں' : 'Post a New Load'}</span>
+              </button>
             </div>
           </div>
 

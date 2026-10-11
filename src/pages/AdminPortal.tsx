@@ -77,22 +77,24 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({
 
   return (
     <div className={`space-y-6 ${isUrdu ? 'font-urdu' : 'font-sans'}`}>
-      {/* Admin Command Banner */}
-      <div className="bg-slate-900 dark:bg-slate-950 text-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Clean Admin Header Card */}
+      <div className="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-blue-400 text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="flex items-center gap-1.5 text-xs text-blue-600 dark:text-blue-400 font-semibold mb-1">
             <ShieldCheck className="w-4 h-4" />
             <span>{isUrdu ? 'قومی آپریشنز و گورننس' : 'Operations Command & Governance'}</span>
           </div>
-          <h1 className="heading-page text-white">{t.adminHeadline}</h1>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl font-normal leading-relaxed">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+            {t.adminHeadline}
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5 max-w-2xl">
             {t.adminSubhead}
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="px-3.5 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono text-xs font-bold flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 font-mono text-xs font-bold flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             System Live
           </span>
         </div>

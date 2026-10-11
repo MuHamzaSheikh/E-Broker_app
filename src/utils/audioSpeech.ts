@@ -2,7 +2,31 @@
  * Audio speech helper for illiterate/low-literacy users
  * Speaks announcements in Urdu or English using the Web Speech API
  */
+
+let isMutedState = false;
+
+export function isAudioMuted(): boolean {
+  return isMutedState;
+}
+
+export function setAudioMuted(muted: boolean): void {
+  isMutedState = muted;
+  if (muted && 'speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+}
+
+export function stopSpeech(): void {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+}
+
 export function speakText(text: string, lang: 'ur' | 'en' = 'ur') {
+  if (isMutedState) {
+    return;
+  }
+
   if (!('speechSynthesis' in window)) {
     console.warn('Speech synthesis not supported in this browser.');
     return;
@@ -30,3 +54,4 @@ export function speakText(text: string, lang: 'ur' | 'en' = 'ur') {
 
   window.speechSynthesis.speak(utterance);
 }
+

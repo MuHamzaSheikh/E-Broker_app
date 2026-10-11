@@ -16,7 +16,10 @@ import {
   Smartphone,
   Sun,
   Moon,
-  Settings
+  Settings,
+  Volume2,
+  VolumeX,
+  Square
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -28,11 +31,13 @@ export const Navbar: React.FC<NavbarProps> = ({ setActiveTab }) => {
   const {
     currentUser,
     currentRole,
-    switchDemoAccount,
     logout,
     language,
     toggleLanguage,
     playVoiceHelp,
+    stopVoice,
+    isVoiceMuted,
+    toggleVoiceMute,
     theme,
     toggleTheme
   } = useApp();
@@ -68,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({ setActiveTab }) => {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-900 dark:bg-slate-950 text-white border-b border-slate-800 dark:border-slate-800 shadow-md">
+    <header className="sticky top-0 z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Brand Logo & Landmark */}
@@ -76,20 +81,20 @@ export const Navbar: React.FC<NavbarProps> = ({ setActiveTab }) => {
             onClick={() => setActiveTab && setActiveTab('home')}
             className="flex items-center gap-3 cursor-pointer"
           >
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm">
               <Trailer22WheelerIcon className="w-6 h-6" />
             </div>
 
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-base sm:text-lg tracking-tight text-white font-sans">
+                <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 dark:text-white font-sans">
                   E-BROKER
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-400/30 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-400/30 px-2 py-0.5 rounded-full">
                   PAKISTAN
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 -mt-0.5 hidden sm:block">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 -mt-0.5 hidden sm:block">
                 {isUrdu
                   ? 'قومی ڈیجیٹل مال برداری نیٹ ورک'
                   : 'National Digital Freight Network'}
@@ -97,30 +102,24 @@ export const Navbar: React.FC<NavbarProps> = ({ setActiveTab }) => {
             </div>
           </div>
 
-          {/* Center: Role Switcher Tabs (Desktop Only) */}
-          <div className="hidden lg:flex items-center gap-1.5 p-1 bg-slate-800/80 dark:bg-slate-900 rounded-xl border border-slate-700/60">
-            {roleConfigs.map((item) => {
-              const Icon = item.icon;
-              const isSelected = currentRole === item.role;
+          {/* Center: Role Badge Indicator (Confidentiality & Role-Lock Enforced) */}
+          <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+            {(() => {
+              const activeConfig = roleConfigs.find((r) => r.role === currentRole) || roleConfigs[0];
+              const Icon = activeConfig.icon;
               return (
-                <button
-                  key={item.role}
-                  type="button"
-                  onClick={() => {
-                    switchDemoAccount(item.role);
-                    if (setActiveTab) setActiveTab('home');
-                  }}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                    isSelected
-                      ? 'bg-blue-600 text-white shadow-xs'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span>{isUrdu ? item.titleUr : item.titleEn}</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <Icon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-100">
+                    {isUrdu ? activeConfig.titleUr : activeConfig.titleEn}
+                  </span>
+                  <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded-md">
+                    {isUrdu ? 'محفوظ سیشن' : 'Isolated Session'}
+                  </span>
+                </div>
               );
-            })}
+            })()}
           </div>
 
           {/* Right Toolbar: Theme Toggle, Language, Audio Guide, Profile Menu */}
@@ -129,13 +128,13 @@ export const Navbar: React.FC<NavbarProps> = ({ setActiveTab }) => {
             <button
               type="button"
               onClick={toggleTheme}
-              className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white flex items-center justify-center border border-slate-700 transition-colors cursor-pointer"
+              className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
               title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
             >
               {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-400" />
+                <Sun className="w-4 h-4 text-amber-500" />
               ) : (
-                <Moon className="w-4 h-4 text-blue-300" />
+                <Moon className="w-4 h-4 text-slate-600" />
               )}
             </button>
 
@@ -143,45 +142,83 @@ export const Navbar: React.FC<NavbarProps> = ({ setActiveTab }) => {
             <button
               type="button"
               onClick={toggleLanguage}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-semibold border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
               title="Switch Language"
             >
-              <Languages className="w-3.5 h-3.5 text-blue-400" />
+              <Languages className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
               <span>{language === 'en' ? 'اردو' : 'English'}</span>
             </button>
 
-            {/* Audio Voice Guide Button */}
-            <button
-              type="button"
-              onClick={() =>
-                playVoiceHelp(
-                  isUrdu
-                    ? 'ای-بروکر پاکستان میں خوش آمدید۔ آپ جس اسکرین پر ہیں وہاں کے اہم بٹن اور کام واضح نظر آ رہے ہیں۔'
-                    : 'Welcome to E-Broker Pakistan. Follow the primary action on your screen to proceed.'
-                )
-              }
-              className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 text-blue-400 flex items-center justify-center border border-slate-700 transition-colors cursor-pointer"
-              title="Voice Guide / صوتی رہنمائی"
-            >
-              <UrduVoiceSpeakerIcon className="w-4 h-4" />
-            </button>
+            {/* Audio Controls: Mute/Unmute & Play/Stop */}
+            <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+              {/* Play Guide Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (isVoiceMuted) {
+                    toggleVoiceMute();
+                  }
+                  playVoiceHelp(
+                    isUrdu
+                      ? 'ای-بروکر پاکستان میں خوش آمدید۔ آپ جس اسکرین پر ہیں وہاں کے اہم بٹن اور کام واضح نظر آ رہے ہیں۔'
+                      : 'Welcome to E-Broker Pakistan. Follow the primary action on your screen to proceed.'
+                  );
+                }}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${
+                  isVoiceMuted
+                    ? 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'
+                    : 'text-blue-600 dark:text-blue-400 hover:bg-white dark:hover:bg-slate-700'
+                }`}
+                title={isUrdu ? 'صوتی رہنمائی چلائیں' : 'Play Voice Guide'}
+              >
+                <UrduVoiceSpeakerIcon className="w-4 h-4" />
+              </button>
+
+              {/* Stop Voice button */}
+              <button
+                type="button"
+                onClick={stopVoice}
+                className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 hover:bg-white dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                title={isUrdu ? 'آواز روکیں (Stop Voice)' : 'Stop Active Speech'}
+              >
+                <Square className="w-3 h-3 fill-current" />
+              </button>
+
+              {/* Mute / Unmute Button */}
+              <button
+                type="button"
+                onClick={toggleVoiceMute}
+                className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${
+                  isVoiceMuted
+                    ? 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-700'
+                }`}
+                title={isVoiceMuted ? 'Unmute Audio / آواز بحال کریں' : 'Mute Audio / آواز بند کریں'}
+              >
+                {isVoiceMuted ? (
+                  <VolumeX className="w-3.5 h-3.5" />
+                ) : (
+                  <Volume2 className="w-3.5 h-3.5" />
+                )}
+              </button>
+            </div>
 
             {/* User Profile dropdown */}
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
-                className="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors cursor-pointer"
+                className="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
               >
                 <img
                   src={currentUser.avatar}
                   alt={currentUser.name}
-                  className="w-7 h-7 rounded-lg object-cover border border-slate-600"
+                  className="w-7 h-7 rounded-lg object-cover border border-slate-300 dark:border-slate-600"
                 />
-                <span className="text-xs font-semibold text-white max-w-[100px] truncate hidden sm:block">
+                <span className="text-xs font-semibold text-slate-800 dark:text-white max-w-[100px] truncate hidden sm:block">
                   {currentUser.name}
                 </span>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                <ChevronDown className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
               </button>
 
               {showProfileMenu && (

@@ -56,10 +56,10 @@ export const SimpleChatModal: React.FC<SimpleChatModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
-      <div className="bg-white rounded-3xl max-w-lg w-full h-[580px] max-h-[90vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full h-[580px] max-h-[90vh] shadow-2xl border border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
         {/* Header */}
-        <div className="p-4 bg-slate-900 text-white flex items-center justify-between shrink-0">
+        <div className="p-4 bg-slate-900 text-white flex items-center justify-between shrink-0 border-b border-slate-800">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-base">
               {recipientName.charAt(0)}
@@ -89,7 +89,7 @@ export const SimpleChatModal: React.FC<SimpleChatModalProps> = ({
         </div>
 
         {/* Message Area */}
-        <div className="flex-1 p-4 overflow-y-auto bg-slate-100 space-y-3">
+        <div className="flex-1 p-4 overflow-y-auto bg-slate-100 dark:bg-slate-950 space-y-3">
           {messages.map((m) => (
             <div
               key={m.id}
@@ -99,13 +99,13 @@ export const SimpleChatModal: React.FC<SimpleChatModalProps> = ({
                 className={`max-w-[80%] rounded-2xl px-4 py-2.5 shadow-xs text-sm ${
                   m.sender === 'me'
                     ? 'bg-blue-600 text-white rounded-br-none'
-                    : 'bg-white text-slate-900 border border-slate-200 rounded-bl-none'
+                    : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 rounded-bl-none'
                 }`}
               >
                 <p className="leading-relaxed">{m.text}</p>
                 <div
                   className={`flex items-center justify-end gap-1 text-[10px] mt-1 ${
-                    m.sender === 'me' ? 'text-blue-200' : 'text-slate-400'
+                    m.sender === 'me' ? 'text-blue-200' : 'text-slate-400 dark:text-slate-400'
                   }`}
                 >
                   <span>{m.time}</span>
@@ -117,13 +117,13 @@ export const SimpleChatModal: React.FC<SimpleChatModalProps> = ({
         </div>
 
         {/* Bottom Input */}
-        <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
+        <form onSubmit={handleSend} className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2">
           <input
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder={language === 'ur' ? 'پیغام لکھیں...' : 'Type a message...'}
-            className="flex-1 h-12 px-4 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-blue-600 text-sm outline-none"
+            className="flex-1 h-12 px-4 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-800 focus:border-blue-600 text-sm outline-none"
           />
           <button
             type="submit"

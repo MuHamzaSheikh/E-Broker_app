@@ -180,44 +180,41 @@ export const OwnerPortal: React.FC<OwnerPortalProps> = ({
           ============================================================ */}
       {currentTab === 'home' && (
         <div className="space-y-6">
-          {/* Top Greeting & Action Card */}
-          <div className="app-card bg-gradient-to-br from-slate-900 to-blue-950 text-white p-6 sm:p-8 space-y-4 border-0 shadow-md">
+          {/* Clean Transporter Header Card */}
+          <div className="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="text-micro text-blue-300 flex items-center gap-1.5">
-                <VerifiedTransporterBadge className="w-4 h-4 text-emerald-400" />
+              <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-semibold mb-1">
+                <VerifiedTransporterBadge className="w-4 h-4" />
                 <span>{isUrdu ? 'تصدیق شدہ ٹرانسپورٹر نیٹ ورک' : 'Verified Transporter Network'}</span>
               </div>
-              <h1 className="heading-page text-white mt-1">
+              <h1 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
                 {isUrdu ? `السلام علیکم، ${currentUser.name}` : `Assalam-o-Alaikum, ${currentUser.name}`}
               </h1>
-              <p className="text-body-sm text-slate-200 mt-1 max-w-xl">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
                 {isUrdu
-                  ? 'پاکستان بھر کے اہم روٹس پر منافع بخش لوڈ تلاش کریں اور اپنی گاڑیاں باآسانی چلائیں۔'
-                  : 'Find high-paying freight loads on major corridors and manage your fleet profitably.'}
+                  ? 'پاکستان بھر کے اہم روٹس پر لوڈ تلاش کریں اور اپنے فلیٹ کا انتظام کریں۔'
+                  : 'Find freight loads on major corridors and manage your fleet.'}
               </p>
             </div>
 
-            {/* Giant Obvious Action */}
-            <div className="flex flex-wrap items-center gap-3">
-              <Button
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
                 onClick={() => handleTabChange('marketplace')}
-                variant="primary"
-                size="md"
-                leftIcon={<Search className="w-5 h-5 stroke-[2.5]" />}
-                className="bg-blue-500 hover:bg-blue-400 text-white text-base py-3.5 px-6 rounded-2xl shadow-lg font-bold"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm px-4 py-2.5 rounded-lg flex items-center gap-2 cursor-pointer transition-colors shadow-xs"
               >
-                {isUrdu ? 'لوڈ تلاش کریں (Find a Load)' : 'Find a Load'}
-              </Button>
+                <Search className="w-4 h-4" />
+                <span>{isUrdu ? 'لوڈ تلاش کریں' : 'Find a Load'}</span>
+              </button>
 
-              <Button
+              <button
+                type="button"
                 onClick={() => setShowAddVehModal(true)}
-                variant="secondary"
-                size="sm"
-                leftIcon={<Plus className="w-4 h-4" />}
-                className="bg-slate-800 text-white hover:bg-slate-700 border-slate-700"
+                className="bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 font-semibold text-sm px-3.5 py-2.5 rounded-lg flex items-center gap-1.5 cursor-pointer transition-colors"
               >
-                {isUrdu ? 'نئی گاڑی شامل کریں' : 'Add Truck'}
-              </Button>
+                <Plus className="w-4 h-4" />
+                <span>{isUrdu ? 'نئی گاڑی' : 'Add Truck'}</span>
+              </button>
             </div>
           </div>
 

@@ -31,7 +31,7 @@ import {
 import { PAKISTAN_CITIES, calculateRoadDistance, generateRouteWaypoints } from '../data/pakistanLocations';
 import { TRANSLATIONS } from '../data/translations';
 import type { Language } from '../data/translations';
-import { speakText } from '../utils/audioSpeech';
+import { speakText, stopSpeech, setAudioMuted } from '../utils/audioSpeech';
 
 interface AppContextType {
   // Auth & Session
@@ -54,6 +54,9 @@ interface AppContextType {
   toggleLanguage: () => void;
   t: typeof TRANSLATIONS['en'];
   playVoiceHelp: (text: string) => void;
+  stopVoice: () => void;
+  isVoiceMuted: boolean;
+  toggleVoiceMute: () => void;
 
   // Theme & Appearance
   theme: 'light' | 'dark';
@@ -284,7 +287,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const t = TRANSLATIONS[language];
 
+  const [isVoiceMuted, setIsVoiceMuted] = useState<boolean>(() => {
+    return localStorage.getItem('ebroker_voice_muted') === 'true';
+  });
+
+  const toggleVoiceMute = () => {
+    setIsVoiceMuted((prev) => {
+      const next = !prev;
+      localStorage.setItem('ebroker_voice_muted', String(next));
+      setAudioMuted(next);
+      return next;
+    });
+  };
+
+  const stopVoice = () => {
+    stopSpeech();
+  };
+
   const playVoiceHelp = (text: string) => {
+    if (isVoiceMuted) return;
     speakText(text, language);
   };
 
@@ -1172,6 +1193,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleLanguage,
         t,
         playVoiceHelp,
+        stopVoice,
+        isVoiceMuted,
+        toggleVoiceMute,
         theme,
         setTheme,
         toggleTheme,
